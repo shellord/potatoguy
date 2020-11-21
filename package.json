@@ -1,0 +1,26 @@
+{
+  "name": "potatoguy",
+  "version": "1.0.0",
+  "description": "PotatoGuy Discord bot ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shellord/potatoguy.git"
+  },
+  "keywords": [
+    "potatoguy"
+  ],
+  "author": "shellord",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shellord/potatoguy/issues"
+  },
+  "homepage": "https://github.com/shellord/potatoguy#readme",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "dotenv": "^8.2.0"
+  }
+}
