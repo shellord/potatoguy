@@ -2,7 +2,6 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const { Player } = require("discord-player");
 const { prefix, token } = require('../config/config.json')
-const { guildOnly } = require('./commands/ping')
 
 const client = new Discord.Client()
 const player = new Player(client)

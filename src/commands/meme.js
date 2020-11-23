@@ -13,7 +13,7 @@ module.exports = {
             const embed = client.embed
             .setTitle(data.title)
             .setColor(0x00AE86)
-            .setFooter("subreddit: "+data.subreddit, "http://i.imgur.com/w1vhFSR.png")
+            .setFooter("subreddit: r/"+data.subreddit, "http://i.imgur.com/w1vhFSR.png")
             .setImage(data.url)
             message.channel.send({embed})
           })
