@@ -3,6 +3,7 @@ module.exports = {
 	aliases:['Skip'],
 	description: 'skip currently playing song!',
 	args:false,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

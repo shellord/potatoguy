@@ -4,6 +4,7 @@ module.exports = {
 	aliases:['Pause'],
 	description: 'Pause the song!',
 	args:false,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

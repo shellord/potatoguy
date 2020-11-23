@@ -3,6 +3,7 @@ module.exports = {
 	aliases:['Volume'],
 	description: 'Set the volume of the player!',
 	args:true,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

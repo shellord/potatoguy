@@ -3,6 +3,7 @@ module.exports = {
 	aliases:['Resume'],
 	description: 'Resume the song!',
 	args:false,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

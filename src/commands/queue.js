@@ -3,6 +3,7 @@ module.exports = {
 	aliases:['Queue',"q","Q"],
 	description: 'View the music queue!',
 	args:false,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

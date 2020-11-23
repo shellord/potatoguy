@@ -3,6 +3,7 @@ module.exports = {
 	aliases:['Clear'],
 	description: 'Clear the queue!',
 	args:false,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

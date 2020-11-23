@@ -2,7 +2,8 @@ module.exports = {
 	name: 'np',
 	aliases:['Np'],
 	description: 'Now playing song!',
-	args:false,
+    args:false,
+    category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

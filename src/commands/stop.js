@@ -3,6 +3,7 @@ module.exports = {
 	aliases:['Stop'],
 	description: 'Stop the player!',
 	args:false,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {

@@ -4,6 +4,7 @@ module.exports = {
 	aliases:['Play','p','P'],
 	description: 'Play an youtube song!',
 	args:true,
+	category:'music',
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {
