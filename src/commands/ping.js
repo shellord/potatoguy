@@ -3,9 +3,9 @@ module.exports = {
 	aliases:['Ping'],
 	description: 'Ping!',
 	args:false,
-	guildOnly:false,
+	guildOnly:true,
 	cooldown: 0,
-	execute(message, args) {
-		message.channel.send('Pong.')
+	execute(client,message, args) {
+		message.channel.send(`Ping : **${client.ws.ping}ms** ${client.emotes.success}`)
 	},
 }

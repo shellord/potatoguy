@@ -1,9 +1,13 @@
 const fs = require('fs')
 const Discord = require('discord.js')
-const { prefix, token } = require('../config.json')
+const { Player } = require("discord-player");
+const { prefix, token } = require('../config/config.json')
 const { guildOnly } = require('./commands/ping')
 
 const client = new Discord.Client()
+const player = new Player(client)
+client.player = player
+client.emotes = require('../config/emojis.json')
 client.commands = new Discord.Collection()
 const cooldowns = new Discord.Collection()
 
@@ -16,18 +20,18 @@ for (const file of commandFiles) {
 
 
 client.on('ready', () => {
+
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity('PotatoSquad', { type: 'WATCHING' })
+  const memberCount = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+  client.user.setActivity(`${memberCount} Potatoes!`, { type: 'WATCHING' })
 
 })
 
 
 client.on('message', message => {
-
   if (!message.content.startsWith(prefix) || message.author.bot) return
-  const args = message.content.slice(prefix.length).trim().split(/ +/)
+  const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const commandName = args.shift().toLowerCase()
-
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
   if (!command) return
 
@@ -64,7 +68,8 @@ client.on('message', message => {
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount)
 
   try {
-    command.execute(message, args)
+    
+    command.execute(client,message, args)
   } catch (error) {
     console.error(error)
     message.reply('there was an error trying to execute that command!');
@@ -72,5 +77,14 @@ client.on('message', message => {
 
 })
 
+fs.readdir("./player-events/", (err, files) => {
+  if (err) return console.error(err)
+  files.forEach(file => {
+      const event = require(`./player-events/${file}`)
+      let eventName = file.split(".")[0];
+      // console.log(`Loading player event ${eventName}`)
+      client.player.on(eventName, event.bind(null, client))
+  })
+})
 
 client.login(token)
