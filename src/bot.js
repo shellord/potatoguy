@@ -6,7 +6,9 @@ const { guildOnly } = require('./commands/ping')
 
 const client = new Discord.Client()
 const player = new Player(client)
+const embed = new Discord.MessageEmbed()
 client.player = player
+client.embed = embed
 client.emotes = require('../config/emojis.json')
 client.commands = new Discord.Collection()
 const cooldowns = new Discord.Collection()
