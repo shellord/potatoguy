@@ -6,7 +6,8 @@ module.exports = {
 	aliases:['Meme'],
 	description: 'view random reddit meme!',
 	args:false,
-	guildOnly:true,
+  guildOnly:true,
+  usage:'subreddit',
 	cooldown: 0,
 	execute(client,message, args) {
     if(!args){
