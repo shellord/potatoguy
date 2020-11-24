@@ -29,7 +29,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-  if(message.content.toLowerCase().includes('hzi') && !message.author.bot){
+  if(message.content.toLowerCase().includes('hi') && !message.author.bot){
     message.channel.send('Hi Potato')
   }
   if (!message.content.startsWith(prefix) || message.author.bot) return
