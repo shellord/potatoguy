@@ -1,4 +1,7 @@
+const Discord = require('discord.js')
+
 const { prefix } = require('../../config/config.json')
+const helpMSG = new Discord.MessageEmbed()
 
 module.exports = {
 	name: 'help',
@@ -17,7 +20,7 @@ module.exports = {
             const uniq = categoryList => [...new Set(categoryList)]
             categories = uniq(categoryList)
             data.push('Here\'s a list of all my commands:')
-            const embed = client.embed
+            const embed = helpMSG
             .setTitle("Help")
             .setColor(0x00AE86)
             .setFooter("Developed and Maintained by shellord#0001")           
@@ -29,8 +32,9 @@ module.exports = {
                 if(!category){
                     category='others'
                 }
-                embed.addFields({name:category,value:cmds})                
+                helpMSG.addFields({name:category,value:cmds})                
             })
+            embed.addFields({name:'UNDER DEVELOPEMENT',value:`\n More commands and features will be added soon!`})
             embed.addFields({name:'help command',value:`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`})
             return message.channel.send({embed})            // data.push('Here\'s a list of all my commands:')
             

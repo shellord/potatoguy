@@ -5,9 +5,7 @@ const { prefix, token } = require('../config/config.json')
 
 const client = new Discord.Client()
 const player = new Player(client)
-const embed = new Discord.MessageEmbed()
 client.player = player
-client.embed = embed
 client.emotes = require('../config/emojis.json')
 client.commands = new Discord.Collection()
 const cooldowns = new Discord.Collection()
@@ -30,6 +28,10 @@ client.on('ready', () => {
 
 
 client.on('message', message => {
+
+  if(message.content.toLowerCase().includes('hzi') && !message.author.bot){
+    message.channel.send('Hi Potato')
+  }
   if (!message.content.startsWith(prefix) || message.author.bot) return
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const commandName = args.shift().toLowerCase()
@@ -77,6 +79,8 @@ client.on('message', message => {
   }
 
 })
+
+
 
 fs.readdir("./player-events/", (err, files) => {
   if (err) return console.error(err)

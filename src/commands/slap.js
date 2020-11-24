@@ -1,3 +1,5 @@
+const Discord = require('discord.js')
+
 module.exports = {
 	name: 'slap',
 	aliases:['Slap'],
@@ -7,7 +9,9 @@ module.exports = {
 	args:true,
 	guildOnly:true,
 	cooldown: 0,
-	execute(client,message, args) {       
+	execute(client,message, args) {     
+        const emoteMSG = new Discord.MessageEmbed()    
+  
         gifs = [
             'https://media3.giphy.com/media/gSIz6gGLhguOY/giphy.gif?cid=ecf05e47ai4yzqt76bjez10oqt763kzqvptp08gayszk7hlr&rid=giphy.gif',
             'https://media2.giphy.com/media/3XlEk2RxPS1m8/giphy.gif?cid=ecf05e47a7c8fc22591828a2c243b23e4439de2ebc25b0c7&rid=giphy.gif',
@@ -21,7 +25,7 @@ module.exports = {
         ]
         user = message.member.nickname ? message.member.nickname : message.member.user.username
         if(!message.mentions.members.first()) return message.channel.send("You need to mention someone,baka!")
-        const embed = client.embed
+        const embed = emoteMSG
             .setTitle(user + " slaps the shit out of " + message.mentions.members.first().user.username)
             .setColor(0x00AE86)
             .setImage(gifs[Math.floor(Math.random() * gifs.length)])

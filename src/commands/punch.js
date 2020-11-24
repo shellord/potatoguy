@@ -1,3 +1,5 @@
+const Discord = require('discord.js')
+
 module.exports = {
 	name: 'punch',
 	aliases:['Punch'],
@@ -6,7 +8,9 @@ module.exports = {
     category:'emotes',
 	guildOnly:true,
 	cooldown: 0,
-	execute(client,message, args) {       
+	execute(client,message, args) {     
+        const emoteMSG = new Discord.MessageEmbed()    
+  
         gifs = [
             'https://media3.giphy.com/media/DViGV8rfVjw6Q/giphy.gif?cid=ecf05e478kt9z1sqq4witijhvt3o7q6e9otx5ach2eecv2d2&rid=giphy.gif',
             'https://media1.giphy.com/media/dDR1TIXAWcVoNaYcbj/giphy.gif?cid=ecf05e47pal6chs45uwbajla166m23c0hcmczkcmkjk17nf3&rid=giphy.gif',
@@ -18,7 +22,7 @@ module.exports = {
         ]
         user = message.member.nickname ? message.member.nickname : message.member.user.username
         if(!message.mentions.members.first()) return message.channel.send("You need to mention someone,baka!")
-        const embed = client.embed
+        const embed = emoteMSG
             .setTitle(user + " lands a punch on " + message.mentions.members.first().user.username)
             .setColor(0x00AE86)
             .setImage(gifs[Math.floor(Math.random() * gifs.length)])
