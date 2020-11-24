@@ -9,10 +9,10 @@ module.exports = {
 	guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {
+    if(!args){
         meme(function(err, data) {
             if (err) return console.error(err)
             const emoteMSG = new Discord.MessageEmbed()    
-
             const embed = emoteMSG
             .setTitle(data.title)
             .setColor(0x00AE86)
@@ -20,6 +20,19 @@ module.exports = {
             .setImage(data.url)
             message.channel.send({embed})
           })
+        }
+    else{
+        meme(args[0], function(err, data) {
+          if (err) return console.error(err)
+          const emoteMSG = new Discord.MessageEmbed()    
+          const embed = emoteMSG
+          .setTitle(data.title)
+          .setColor(0x00AE86)
+          .setFooter("subreddit: r/"+data.subreddit, "http://i.imgur.com/w1vhFSR.png")
+          .setImage(data.url)
+          message.channel.send({embed})
+        })
+    }
 
 	},
 }
