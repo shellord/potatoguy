@@ -10,7 +10,7 @@ module.exports = {
   usage:'subreddit',
 	cooldown: 0,
 	execute(client,message, args) {
-    if(!args){
+    if(!args[0]){
         meme(function(err, data) {
             if (err) return console.error(err)
             const emoteMSG = new Discord.MessageEmbed()    
