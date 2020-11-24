@@ -15,7 +15,7 @@ module.exports = {
         client.player.setRepeatMode(message, false)
         client.player.stop(message)
 
-        message.channel.send(`Music stopped into this server ${client.emotes.success}`)
+        message.channel.send(`I have stopped playing music ${client.emotes.success}`)
         
 	},
 }

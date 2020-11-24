@@ -32,7 +32,7 @@ module.exports = {
                 if(!category){
                     category='others'
                 }
-                helpMSG.addFields({name:category,value:cmds})                
+                helpMSG.addFields({name:category,value:cmds,inline:true})                
             })
             embed.addFields({name:'UNDER DEVELOPEMENT',value:`\n More commands and features will be added soon!`})
             embed.addFields({name:'help command',value:`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`})
