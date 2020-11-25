@@ -3,10 +3,10 @@ const { meme } = require('memejs')
 
 module.exports = {
 	name: 'mimi',
-	aliases:['Mimi'],
+	aliases:['Mimi','ani','Ani'],
 	description: 'view random reddit anime meme!',
 	args:false,
-    guildOnly:true,
+  guildOnly:true,
 	cooldown: 0,
 	execute(client,message, args) {
         meme('animememe', function(err, data) {
