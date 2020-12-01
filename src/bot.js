@@ -92,4 +92,13 @@ fs.readdir("./player-events/", (err, files) => {
   })
 })
 
+fs.readdir("./bot-events/", (err, files) => {
+  if (err) return console.error(err)
+  files.forEach(file => {
+      const event = require(`./bot-events/${file}`)
+      let eventName = file.split(".")[0];
+      client.on(eventName, event.bind(null, client))
+  })
+})
+
 client.login(token)
