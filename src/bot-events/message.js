@@ -76,7 +76,8 @@ module.exports = (client,message) => {
         user = message.member.nickname ? message.member.nickname : message.member.user.username
         if(isAnimated) {
             message.delete()
-            hook(message.channel, user, message.content, null,message.author.displayAvatarURL())
+            userMessage = message.content.replace(':'+EMOJI+':',"<a:"+EMOJI+":"+emojiId+">")
+            hook(message.channel, user, userMessage, null,message.author.displayAvatarURL())
         }
         
         
