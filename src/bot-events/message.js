@@ -61,7 +61,8 @@ module.exports = (client,message) => {
 
         var EMOJI = message.content.substring(message.content.indexOf(':')+1,message.content.lastIndexOf(':'))
 
-        if(EMOJI) message.delete()
+        if(EMOJI.length <= 1) return
+        message.delete()
 
         message.guild.emojis.cache.map(emoji=>
             {
