@@ -62,7 +62,6 @@ module.exports = (client,message) => {
         var EMOJI = message.content.substring(message.content.indexOf(':')+1,message.content.lastIndexOf(':'))
 
         if(EMOJI.length <= 1) return
-        message.delete()
 
         message.guild.emojis.cache.map(emoji=>
             {
@@ -74,6 +73,7 @@ module.exports = (client,message) => {
             }
         )
         if(!emojiId) return
+        message.delete()
         user = message.member.nickname ? message.member.nickname : message.member.user.username
 
         isAnimated ? 
