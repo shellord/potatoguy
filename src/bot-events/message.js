@@ -54,14 +54,14 @@ module.exports = (client,message) => {
     }
 
 
-    var emojiId
-    var userMessage
-    var isAnimated = 0
-    
+        var emojiId
+        var isAnimated = 0
+        
+        if(message.content.substring(message.content.indexOf(':')-2,message.content.indexOf(':')) =='<a') return
 
         var EMOJI = message.content.substring(message.content.indexOf(':')+1,message.content.lastIndexOf(':'))
-
         if(EMOJI.length <= 1) return
+        
 
         message.guild.emojis.cache.map(emoji=>
             {
@@ -73,13 +73,12 @@ module.exports = (client,message) => {
             }
         )
         if(!emojiId) return
-        message.delete()
         user = message.member.nickname ? message.member.nickname : message.member.user.username
-
-        isAnimated ? 
-        userMessage = message.content.replace(':'+EMOJI+':',"<a:"+EMOJI+":"+emojiId+">"):
-        userMessage = message.content.replace(':'+EMOJI+':',"<:"+EMOJI+":"+emojiId+">")
-        hook(message.channel, user, userMessage, null,message.author.displayAvatarURL()) 
+        if(isAnimated) {
+            message.delete()
+            hook(message.channel, user, message.content, null,message.author.displayAvatarURL())
+        }
+        
         
         
 
