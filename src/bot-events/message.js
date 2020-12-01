@@ -59,7 +59,7 @@ module.exports = (client,message) => {
     var isAnimated = 0
     
 
-        var EMOJI = message.content.substring(message.content.indexOf(';')+1,message.content.lastIndexOf(';'))
+        var EMOJI = message.content.substring(message.content.indexOf(':')+1,message.content.lastIndexOf(':'))
 
         if(EMOJI) message.delete()
 
@@ -76,8 +76,8 @@ module.exports = (client,message) => {
         user = message.member.nickname ? message.member.nickname : message.member.user.username
 
         isAnimated ? 
-        userMessage = message.content.replace(';'+EMOJI+';',"<a:"+EMOJI+":"+emojiId+">"):
-        userMessage = message.content.replace(';'+EMOJI+';',"<:"+EMOJI+":"+emojiId+">")
+        userMessage = message.content.replace(':'+EMOJI+':',"<a:"+EMOJI+":"+emojiId+">"):
+        userMessage = message.content.replace(':'+EMOJI+':',"<:"+EMOJI+":"+emojiId+">")
         hook(message.channel, user, userMessage, null,message.author.displayAvatarURL()) 
         
         
