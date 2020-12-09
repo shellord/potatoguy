@@ -7,6 +7,7 @@ module.exports = {
 	description: 'view random reddit meme!',
 	args:false,
   guildOnly:true,
+  category: 'fun',
   usage:'subreddit',
 	cooldown: 0,
 	execute(client,message, args) {

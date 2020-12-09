@@ -7,6 +7,7 @@ module.exports = {
 	description: 'view random reddit anime meme!',
 	args:false,
   guildOnly:true,
+  category: 'fun',
 	cooldown: 0,
 	execute(client,message, args) {
         meme('animememe', function(err, data) {
