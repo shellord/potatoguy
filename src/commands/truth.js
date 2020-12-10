@@ -71,8 +71,7 @@ module.exports = {
             "Have you ever cheated or been cheated on?",
             "What is the biggest thing you’ve gotten away with?",
             "What is the most childish thing you still do?",
-            "What is the silliest thing you have an emotional attachment to?",
-            "Where is the strangest place you have peed?",
+            "What is the silliest thing you have an emotional attachment to?"
         ]
         
 
