@@ -19,19 +19,14 @@ for (const file of commandFiles) {
 
 
 client.on('ready', () => {
-
   console.log(`Logged in as ${client.user.tag}!`)
   const memberCount = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
   client.user.setActivity(`${memberCount} Potatoes!`, { type: 'WATCHING' })
-
 })
 
 
 client.on('message', message => {
 
-  // if(message.content.toLowerCase().includes('hi') && !message.author.bot){
-  //   message.channel.send('Hi Potato')
-  // }
   if (!message.content.startsWith(prefix) || message.author.bot) return
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const commandName = args.shift().toLowerCase()
