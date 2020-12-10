@@ -1,6 +1,6 @@
 var firebase = require('firebase')
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "",
     authDomain: "",
     projectId: "",
@@ -9,6 +9,6 @@ var firebaseConfig = {
     appId: "",
     measurementId: ""
 }
-const Firebase = firebase.initializeApp(firebaseConfig)
 
-export default Firebase
+exports.Firebase = firebase.initializeApp(firebaseConfig)
+
