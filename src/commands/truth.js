@@ -1,18 +1,19 @@
-const { meme } = require("memejs")
+const { Firebase } = require('../../config/Firebase')
+db = Firebase.firestore()
 
 module.exports = {
     name: 'truth',
     aliases: ['Truth'],
-    description: 'Asks a random Truth or Dare Truth Question!',
+    description: 'Asks a random Truth or Dare Truth Question!\n Add a new questin by using `!truth add <question>`\n use `>name` to mention a random user from server in question',
     args: false,
     category: 'fun',
     guildOnly: true,
-    cooldown: 2,
+    cooldown: 3,
     execute(client, message, args) {
 
         random_member = client.users.cache.filter(user => !user.bot).random().toString()
 
-        questions = [
+        default_questions = [
             "What’s the last lie you told?",
             "Name someone you’ve pretended to like but actually couldn’t stand.",
             "What’s the meanest thing you’ve ever said to someone else?",
@@ -24,9 +25,9 @@ module.exports = {
             "Name someone from the group that you would marry",
             "Pick two people from the group that you think they would be great couple.",
             "Name someone from the group that you would spend your money on.",
-            "What did you think about " + random_member +" when you first interacted ?",
-            "If "+ random_member +" dies, will you miss him/her ?",
-            "If you were here right now, what would you want to do with " + random_member,
+            "What did you think about >name when you first interacted ?",
+            "If >name dies, will you miss him/her ?",
+            "If you were here right now, what would you want to do with >name",
             "Did you ever get jealous from someone in the group..and why?",
             "If it was the end of the world and someone had to sacrifice, would you do it for the group ?",
             "Name someone on the group who said something to you that made you hurt?",
@@ -34,8 +35,8 @@ module.exports = {
             "Which of the server member would you tell him/her about your secrets ?",
             "From the people in this server, who do you most want to make out with?",
             "From the people in this server, who do you most care about?",
-            "If you woke up and find out that "+ random_member +" is your husband/wife what would you do?",
-            "Who would you save"+ random_member+" if they are in danger",
+            "If you woke up and find out that >name is your husband/wife what would you do?",
+            "Who would you save >name if they are in danger ?",
             "Have you ever considered cheating on a partner?",
             "Have you ever seen a dead body?",
             "Have you ever had a crush on anyone in this server?",
@@ -73,7 +74,58 @@ module.exports = {
             "What is the silliest thing you have an emotional attachment to?",
             "Where is the strangest place you have peed?",
         ]
-        message.channel.send(questions[Math.floor(Math.random() * questions.length)])
+        
 
+        if (args[0] == 'add'){
+            if (message.content.split('add')[1]==''){
+                return message.channel.send(client.emotes.error + " Hey Baka!, you need to enter a question to add!")
+            }
+
+            author = message.author.username
+            guildID = message.channel.guild.id
+            question = message.content.split('add')[1].trim()
+            type = "truth"
+
+            db.collection("truth-or-dare-questions").add({
+                author: author,
+                guildID: guildID,
+                question: question,
+                type: type
+            })
+            .then(function (docRef) {
+                message.channel.send(client.emotes.success + " New Dare Question: `" + message.content.split('add')[1] + "` has been added to question list!")
+
+            })
+            .catch(function (error) {
+                message.channel.send(client.emotes.error + " Error adding question!")
+            })
+
+            return
+        }
+
+        function sendQuestion(questions){
+
+            questionList = questions.map(data => data.question)
+            questionList = [...questionList,...default_questions]
+            random_question = questionList[Math.floor(Math.random() * questionList.length)].replace(">name", random_member)
+            message.channel.send()
+            message.channel.send({
+                embed: {
+                    color: 'YELLOW',
+                    description: random_question,
+                },
+            });
+        }
+
+        db.collection("truth-or-dare-questions")
+            .where("type","==","truth")
+            .get()
+            .then((snapshot) => {
+                const questions = snapshot.docs.map((doc) => ({
+                    question: doc.question,
+                    ...doc.data(),
+                }));
+                sendQuestion(questions)
+            })    
     },
 }
