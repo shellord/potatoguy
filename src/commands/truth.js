@@ -92,7 +92,7 @@ module.exports = {
                 type: type
             })
             .then(function (docRef) {
-                message.channel.send(client.emotes.success + " New Dare Question: `" + message.content.split('add')[1] + "` has been added to question list!")
+                message.channel.send(client.emotes.success + " New Truth Question: `" + message.content.split('add')[1] + "` has been added to question list!")
 
             })
             .catch(function (error) {
