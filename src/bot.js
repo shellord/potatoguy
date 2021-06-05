@@ -1,11 +1,11 @@
 const fs = require('fs')
 const Discord = require('discord.js')
-const { Player } = require('discord-player')
+// const { Player } = require('discord-player')
 const { prefix, token } = require('../config/config.json')
 
 const client = new Discord.Client()
-const player = new Player(client)
-client.player = player
+// const player = new Player(client)
+// client.player = player
 client.emotes = require('../config/emojis.json')
 client.commands = new Discord.Collection()
 const cooldowns = new Discord.Collection()
@@ -80,15 +80,15 @@ client.on('message', (message) => {
   }
 })
 
-fs.readdir('./src/player-events/', (err, files) => {
-  if (err) return console.error(err)
-  files.forEach((file) => {
-    const event = require(`./player-events/${file}`)
-    let eventName = file.split('.')[0]
-    // console.log(`Loading player event ${eventName}`)
-    client.player.on(eventName, event.bind(null, client))
-  })
-})
+// fs.readdir('./src/player-events/', (err, files) => {
+//   if (err) return console.error(err)
+//   files.forEach((file) => {
+//     const event = require(`./player-events/${file}`)
+//     let eventName = file.split('.')[0]
+//     // console.log(`Loading player event ${eventName}`)
+//     client.player.on(eventName, event.bind(null, client))
+//   })
+// })
 
 fs.readdir('./src/bot-events/', (err, files) => {
   if (err) return console.error(err)
