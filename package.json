@@ -4,6 +4,7 @@
   "description": "PotatoGuy Discord bot ",
   "main": "index.js",
   "scripts": {
+    "start":"node src/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
