@@ -11,8 +11,23 @@ module.exports = {
     cooldown: 3,
     execute(client, message, args) {
 
-        random_member = client.users.cache.filter(user => !user.bot).random().toString()
+        let random_member = client.users.cache.filter(user => !user.bot).random().toString()
+        let questionsList = []
+        const initQuestions = () => {
+            db.collection("truth-or-dare-questions")
+            .where("type","==","truth")
+            .get()
+            .then((snapshot) => {
+                const questions = snapshot.docs.map((doc) => ({
+                    question: doc.question,
+                    ...doc.data(),
+                }));
+                questionsList = questions
+            })   
+            initQuestions= true
+        }
 
+        initQuestions()
         default_questions = [
             "What’s the last lie you told?",
             "Name someone you’ve pretended to like but actually couldn’t stand.",
@@ -93,6 +108,16 @@ module.exports = {
             })
             .then(function (docRef) {
                 message.channel.send(client.emotes.success + " New Truth Question: `" + message.content.split('add')[1] + "` has been added to question list!")
+                db.collection("truth-or-dare-questions")
+                        .where("type","==","truth")
+                        .get()
+                        .then((snapshot) => {
+                            const questions = snapshot.docs.map((doc) => ({
+                                question: doc.question,
+                                ...doc.data(),
+                            }));
+                            questionsList = questions
+                        })   
 
             })
             .catch(function (error) {
@@ -115,16 +140,7 @@ module.exports = {
                 },
             });
         }
-
-        db.collection("truth-or-dare-questions")
-            .where("type","==","truth")
-            .get()
-            .then((snapshot) => {
-                const questions = snapshot.docs.map((doc) => ({
-                    question: doc.question,
-                    ...doc.data(),
-                }));
-                sendQuestion(questions)
-            })    
+        sendQuestion(questionsList)
+      
     },
 }
