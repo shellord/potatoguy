@@ -96,7 +96,6 @@ module.exports = {
       random_question = questionList[
         Math.floor(Math.random() * questionList.length)
       ].replace('>name', random_member)
-      message.channel.send()
       message.channel.send({
         embed: {
           color: 'ORANGE',

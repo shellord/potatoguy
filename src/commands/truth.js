@@ -27,7 +27,7 @@ module.exports = {
             })   
             has_initQuestions= true
         }
-        
+
         if(!has_initQuestions){
             initQuestions()
         }
@@ -136,7 +136,6 @@ module.exports = {
             questionList = questions.map(data => data.question)
             questionList = [...questionList,...default_questions]
             random_question = questionList[Math.floor(Math.random() * questionList.length)].replace(">name", random_member)
-            message.channel.send()
             message.channel.send({
                 embed: {
                     color: 'YELLOW',
