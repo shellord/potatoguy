@@ -11,27 +11,8 @@ module.exports = {
     cooldown: 3,
     execute(client, message, args) {
 
-        let random_member = client.users.cache.filter(user => !user.bot).random().toString()
-        let questionsList = []
-        let has_initQuestions = false
-        const initQuestions = () => {
-            db.collection("truth-or-dare-questions")
-            .where("type","==","truth")
-            .get()
-            .then((snapshot) => {
-                const questions = snapshot.docs.map((doc) => ({
-                    question: doc.question,
-                    ...doc.data(),
-                }));
-                questionsList = questions
-            })   
-            has_initQuestions= true
-        }
+        random_member = client.users.cache.filter(user => !user.bot).random().toString()
 
-        if(!has_initQuestions){
-            initQuestions()
-        }
-        
         default_questions = [
             "What’s the last lie you told?",
             "Name someone you’ve pretended to like but actually couldn’t stand.",
@@ -112,16 +93,6 @@ module.exports = {
             })
             .then(function (docRef) {
                 message.channel.send(client.emotes.success + " New Truth Question: `" + message.content.split('add')[1] + "` has been added to question list!")
-                db.collection("truth-or-dare-questions")
-                        .where("type","==","truth")
-                        .get()
-                        .then((snapshot) => {
-                            const questions = snapshot.docs.map((doc) => ({
-                                question: doc.question,
-                                ...doc.data(),
-                            }));
-                            questionsList = questions
-                        })   
 
             })
             .catch(function (error) {
@@ -136,6 +107,7 @@ module.exports = {
             questionList = questions.map(data => data.question)
             questionList = [...questionList,...default_questions]
             random_question = questionList[Math.floor(Math.random() * questionList.length)].replace(">name", random_member)
+            message.channel.send()
             message.channel.send({
                 embed: {
                     color: 'YELLOW',
@@ -143,7 +115,16 @@ module.exports = {
                 },
             });
         }
-        sendQuestion(questionsList)
-      
+
+        db.collection("truth-or-dare-questions")
+            .where("type","==","truth")
+            .get()
+            .then((snapshot) => {
+                const questions = snapshot.docs.map((doc) => ({
+                    question: doc.question,
+                    ...doc.data(),
+                }));
+                sendQuestion(questions)
+            })    
     },
 }
