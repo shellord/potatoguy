@@ -13,6 +13,7 @@ module.exports = {
 
         let random_member = client.users.cache.filter(user => !user.bot).random().toString()
         let questionsList = []
+        let has_initQuestions = false
         const initQuestions = () => {
             db.collection("truth-or-dare-questions")
             .where("type","==","truth")
@@ -24,10 +25,13 @@ module.exports = {
                 }));
                 questionsList = questions
             })   
-            initQuestions= true
+            has_initQuestions= true
         }
-
-        initQuestions()
+        
+        if(!has_initQuestions){
+            initQuestions()
+        }
+        
         default_questions = [
             "What’s the last lie you told?",
             "Name someone you’ve pretended to like but actually couldn’t stand.",
