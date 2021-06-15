@@ -8,12 +8,12 @@ module.exports = {
   guildOnly: true,
   cooldown: 3,
   execute(client, message, args) {
-    random_member = client.users.cache
+    let random_member = client.users.cache
       .filter((user) => !user.bot)
       .random()
       .toString()
 
-    default_questions = [
+    let default_questions = [
       'Text the first person of your WhatsApp or insta (whatever line group says)',
       'Call ' + random_member + ' and say (whatever line server people say)',
       'Choose Kill/Marry/Kiss/Slap to the three name people give you.',
@@ -26,7 +26,25 @@ module.exports = {
       'Sent screenshot of your search history',
       'Simp a person in this server others mention in a message',
     ]
+    let questionsList = []
+    let has_initQuestions = false
 
+    const initQuestions = () =>{
+      db.collection('truth-or-dare-questions')
+      .where('type', '==', 'dare')
+      .get()
+      .then((snapshot) => {
+        const questions = snapshot.docs.map((doc) => ({
+          question: doc.question,
+          ...doc.data(),
+        }))
+        questionsList = questions
+      })
+    }
+
+    if(!has_initQuestions){
+      initQuestions()
+    }
     if (args[0] == 'add') {
       if (message.content.split('add')[1] == '') {
         return message.channel.send(
@@ -54,6 +72,16 @@ module.exports = {
               message.content.split('add')[1] +
               '` has been added to question list!'
           )
+          db.collection('truth-or-dare-questions')
+          .where('type', '==', 'dare')
+          .get()
+          .then((snapshot) => {
+            const questions = snapshot.docs.map((doc) => ({
+              question: doc.question,
+              ...doc.data(),
+            }))
+            questionsList = questions
+          })
         })
         .catch(function (error) {
           message.channel.send(client.emotes.error + ' Error adding question!')
@@ -76,16 +104,6 @@ module.exports = {
         },
       })
     }
-
-    db.collection('truth-or-dare-questions')
-      .where('type', '==', 'dare')
-      .get()
-      .then((snapshot) => {
-        const questions = snapshot.docs.map((doc) => ({
-          question: doc.question,
-          ...doc.data(),
-        }))
-        sendQuestion(questions)
-      })
+    sendQuestion(questionsList)
   },
 }
