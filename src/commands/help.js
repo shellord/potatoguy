@@ -13,7 +13,6 @@ module.exports = {
 
         const data = []
         const { commands } = message.client
-
         if (!args.length) {
 
             categoryList = commands.map(command =>command.category )
@@ -23,7 +22,7 @@ module.exports = {
             const embed = helpMSG
             .setTitle("Help")
             .setColor(0x00AE86)
-            .setFooter("Developed and Maintained by shellord#0001")           
+            .setFooter("Developed and Maintained by shellord#3526")           
             categories.map(category =>{
                 let cmds = []
                 commands.filter(command => command.category==category).map(command => {
